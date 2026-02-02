@@ -2,17 +2,17 @@ package org.example;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Question {
+public class MultipleChoiceQuestion implements IQuestion {
     String text;
 
     ArrayList<Answer> answers;
 
-    public Question(String text) {
+    public MultipleChoiceQuestion(String text) {
         this.text = text;
         this.answers = new ArrayList<>();
     }
 
-    void addAnswer(Answer answer) {
+    public void addAnswer(Answer answer) {
         answers.add(answer);
     }
 

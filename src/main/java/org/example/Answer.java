@@ -1,6 +1,6 @@
 package org.example;
 
-public class Answer {
+public class Answer implements IAnswer {
 
     private final String text;
 
