@@ -7,23 +7,27 @@ import java.util.Scanner;
 public class Quiz implements IQuiz{
 
     Scanner scanner = new Scanner(System.in);
-    private List<IQuestion> questions;
+    private Repository<IQuestion> questionRepo;
     private int score;
 
     public Quiz() {
-        this.questions = new ArrayList<>();
+        this.questionRepo = new Repository<>();
         this.score = 0;
+    }
+
+    public int qAmount(){
+        return questionRepo.count();
     }
 
     @Override
     public void addQuestion(IQuestion question) {
-        questions.add(question);
+        questionRepo.addItem(question);
     }
 
     @Override
     public void play() {
 
-        for (IQuestion question : questions) {
+        for (IQuestion question : questionRepo.getItems()) {
             System.out.println(question.getText());
 
             for (int i = 0; i < question.getAnswers().size(); i++) {
