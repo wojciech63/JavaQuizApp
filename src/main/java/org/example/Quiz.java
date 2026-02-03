@@ -24,6 +24,10 @@ public class Quiz implements IQuiz{
         questionRepo.addItem(question);
     }
 
+    public List<IQuestion> getQuestions() {
+        return questionRepo.getItems();
+    }
+
     @Override
     public void play() {
 
