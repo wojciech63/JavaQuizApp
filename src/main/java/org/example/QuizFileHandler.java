@@ -1,7 +1,8 @@
 package org.example;
 
-import tools.jackson.core.type.TypeReference;
-import tools.jackson.databind.ObjectMapper;
+
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
 import java.io.IOException;
@@ -10,7 +11,8 @@ import java.util.List;
 public class QuizFileHandler {
     public void saveQuestions(List<IQuestion> questions) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
-        mapper.writeValue(new File("src/main/java/org/example/resources/Quiz.JSON"), questions);
+        mapper.writerFor(new TypeReference<List<IQuestion>>(){})
+                .writeValue(new File("src/main/java/org/example/resources/Quiz.JSON"), questions);
     }
 
     public List<IQuestion> loadQuestions() throws IOException {
