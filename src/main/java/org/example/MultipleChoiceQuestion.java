@@ -2,13 +2,17 @@ package org.example;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MultipleChoiceQuestion implements IQuestion {
-    String text;
+public class MultipleChoiceQuestion extends Question{
 
     ArrayList<Answer> answers;
 
+    public MultipleChoiceQuestion(){
+        super();
+        this.answers = new ArrayList<>();
+    };
+
     public MultipleChoiceQuestion(String text) {
-        this.text = text;
+        super(text);
         this.answers = new ArrayList<>();
     }
 
@@ -18,10 +22,6 @@ public class MultipleChoiceQuestion implements IQuestion {
 
     public List<Answer> getAnswers(){
         return answers;
-    }
-
-    public String getText() {
-        return text;
     }
 
     public boolean checkAnswer(int index){
