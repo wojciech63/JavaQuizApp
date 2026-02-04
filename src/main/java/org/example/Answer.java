@@ -2,9 +2,12 @@ package org.example;
 
 public class Answer implements IAnswer {
 
-    private final String text;
+    private String text;
+    private boolean isCorrect;
 
-    private final boolean isCorrect;
+    public Answer(){
+
+    }
 
     public Answer(String text, boolean isCorrect) {
         this.text = text;
@@ -14,8 +17,16 @@ public class Answer implements IAnswer {
         return text;
     }
 
+    public void setText(String text) {
+        this.text = text;
+    }
+
     public boolean isCorrect() {
         return isCorrect;
+    }
+
+    public void setCorrect(boolean correct) {
+        isCorrect = correct;
     }
 
     @Override

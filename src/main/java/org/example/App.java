@@ -11,6 +11,7 @@ public class App
         Quiz quiz = new Quiz();
         QuizFileHandler quizFileHandler = new QuizFileHandler();
 
+        /*
         MultipleChoiceQuestion question1 = new MultipleChoiceQuestion("What is the capital of Poland?");
         question1.addAnswer(new Answer("Warsaw", true));
         question1.addAnswer(new Answer("Poznan", false));
@@ -26,7 +27,19 @@ public class App
         quiz.addQuestion(question1);
         quiz.addQuestion(question2);
         quiz.addQuestion(question3);
+        */
 
+        try{
+            List<IQuestion> loadedQuestions = quizFileHandler.loadQuestions();
+            for(IQuestion question : loadedQuestions){
+                quiz.addQuestion(question);
+            }
+            System.out.println("Successfully loaded " + loadedQuestions.size() + " questions");
+        } catch(IOException e){
+            System.out.println("Failed to load questions");
+            System.out.println(e.getMessage());
+            return;
+        }
         try {
             quizFileHandler.saveQuestions(quiz.getQuestions());
             System.out.println("Udało się zapisać!");
