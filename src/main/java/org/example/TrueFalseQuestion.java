@@ -1,11 +1,14 @@
 package org.example;
 
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@DiscriminatorValue("TF")
 public class TrueFalseQuestion extends Question {
-
-    private boolean correctAnswer;
 
     public TrueFalseQuestion() {
         super();
@@ -13,26 +16,10 @@ public class TrueFalseQuestion extends Question {
 
     public TrueFalseQuestion(String text, boolean correctAnswer) {
         super(text);
-        this.correctAnswer = correctAnswer;
-    }
+        Answer trueAns = new Answer("True", correctAnswer);
+        Answer falseAns = new Answer("False", !correctAnswer);
 
-    @Override
-    public List<Answer> getAnswers(){
-        List<Answer> trueFalse = new ArrayList<>();
-        trueFalse.add(new Answer("True", correctAnswer));
-        trueFalse.add(new Answer("False", !correctAnswer));
-        return trueFalse;
-    }
-
-    @Override
-    public boolean checkAnswer(int index){
-        if (index == 0) return  correctAnswer;
-        if (index == 1) return  !correctAnswer;
-        return false;
-    }
-
-    @Override
-    public void addAnswer(Answer answer){
-
+        this.addAnswer(trueAns);
+        this.addAnswer(falseAns);
     }
 }

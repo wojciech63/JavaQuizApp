@@ -1,12 +1,23 @@
 package org.example;
 
+import jakarta.persistence.*;
 
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import java.util.ArrayList;
+import java.util.List;
 
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "question_type")
 public abstract class Question implements IQuestion {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     protected String text;
 
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "question_id")
+    private List<Answer> answers = new ArrayList<>();
     public Question(){
 
     }
@@ -15,10 +26,27 @@ public abstract class Question implements IQuestion {
         this.text = text;
     }
 
+    public void addAnswer(Answer answer) {
+        answers.add(answer);
+    }
+
     @Override
     public String getText() {
         return text;
     }
+
+    public boolean checkAnswer(int index){
+        if (index <0 || index >= answers.size()){
+            return false;
+        }
+        return answers.get(index).isCorrect();
+    }
+
+    @Override
+    public List<Answer> getAnswers() {
+        return answers;
+    }
+
     public void setText(String text) {
         this.text = text;
     }

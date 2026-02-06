@@ -12,12 +12,12 @@ public class QuizFileHandler {
     public void saveQuestions(List<IQuestion> questions) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         mapper.writerFor(new TypeReference<List<IQuestion>>(){})
-                .writeValue(new File("src/main/java/org/example/resources/org/example/Quiz.JSON"), questions);
+                .writeValue(new File("src/main/resources/Quiz.JSON"), questions);
     }
 
     public List<IQuestion> loadQuestions() throws IOException {
         ObjectMapper mapper = new ObjectMapper();
-        return mapper.readValue(new File("src/main/java/org/example/resources/org/example/Quiz.JSON"), new TypeReference<List<IQuestion>>(){});
+        return mapper.readValue(new File("src/main/resources/Quiz.JSON"), new TypeReference<List<IQuestion>>(){});
     }
 
     public void printQuestions(List<IQuestion> questions) throws IOException {

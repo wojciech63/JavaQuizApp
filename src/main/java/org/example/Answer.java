@@ -1,7 +1,16 @@
 package org.example;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
 public class Answer implements IAnswer {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String text;
     private boolean isCorrect;
 
@@ -13,6 +22,7 @@ public class Answer implements IAnswer {
         this.text = text;
         this.isCorrect = isCorrect;
     }
+
     public String getText() {
         return text;
     }

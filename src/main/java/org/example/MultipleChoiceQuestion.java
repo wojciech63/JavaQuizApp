@@ -1,33 +1,21 @@
 package org.example;
+import jakarta.persistence.DiscriminatorColumn;
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MultipleChoiceQuestion extends Question{
-
-    ArrayList<Answer> answers;
+@Entity
+@DiscriminatorValue("MULTI")
+public class MultipleChoiceQuestion extends Question {
 
     public MultipleChoiceQuestion(){
         super();
-        this.answers = new ArrayList<>();
     };
 
     public MultipleChoiceQuestion(String text) {
         super(text);
-        this.answers = new ArrayList<>();
-    }
-
-    public void addAnswer(Answer answer) {
-        answers.add(answer);
-    }
-
-    public List<Answer> getAnswers(){
-        return answers;
-    }
-
-    public boolean checkAnswer(int index){
-        if (index <0 || index >= answers.size()){
-            return false;
-        }
-        return answers.get(index).isCorrect();
     }
 }
