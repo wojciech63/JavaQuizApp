@@ -8,7 +8,7 @@ import java.util.List;
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "question_type")
-public abstract class Question implements IQuestion {
+public abstract class Question {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,7 +30,6 @@ public abstract class Question implements IQuestion {
         answers.add(answer);
     }
 
-    @Override
     public String getText() {
         return text;
     }
@@ -42,7 +41,6 @@ public abstract class Question implements IQuestion {
         return answers.get(index).isCorrect();
     }
 
-    @Override
     public List<Answer> getAnswers() {
         return answers;
     }

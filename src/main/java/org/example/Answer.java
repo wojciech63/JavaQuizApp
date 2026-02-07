@@ -27,6 +27,10 @@ public class Answer {
         return text;
     }
 
+    public long  getId() {
+        return id;
+    }
+
     public void setText(String text) {
         this.text = text;
     }

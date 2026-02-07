@@ -1,0 +1,26 @@
+package org.example;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+
+@Controller
+public class QuizWebController {
+
+    private QuizService quizService;
+
+    @Autowired
+    public QuizWebController(QuizService quizService) {
+        this.quizService = quizService;
+    }
+
+    @GetMapping("/quiz")
+    public String showQuiz(Model model) {
+
+        model.addAttribute("questions", quizService.getQuestions());
+        return "quiz";
+
+    }
+
+}
