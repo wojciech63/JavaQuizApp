@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@DiscriminatorValue("MULTI")
+@DiscriminatorValue("SINGLE_CHOICE")
 public class MultipleChoiceQuestion extends Question {
 
     public MultipleChoiceQuestion(){

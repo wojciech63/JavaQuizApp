@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Twój Wynik</title>
+</head>
+<body style="text-align: center; font-family: sans-serif; margin-top: 50px;">
+
+<h1>Koniec Quizu!</h1>
+
+<h2 style="color: green;">
+    Zdobyłeś: <span th:text="${score}">0</span> punktów
+</h2>
+
+<br>
+
+<a href="/quiz" style="font-size: 18px; text-decoration: none; border: 1px solid black; padding: 10px; color: black;">
+    Spróbuj jeszcze raz
+</a>
+
+</body>
+</html>

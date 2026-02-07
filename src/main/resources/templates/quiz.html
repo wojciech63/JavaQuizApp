@@ -16,7 +16,7 @@
         <ul class="answer-list">
             <li th:each="answer : ${question.answers}">
 
-                <input type="checkbox" name="selectedAnswerId" th:value="${answer.id}" />
+                <input type="radio" name="selectedAnswerId" th:value="${answer.id}" />
 
                 <span th:text="${answer.text}">Odp</span>
 

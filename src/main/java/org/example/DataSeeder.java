@@ -1,4 +1,3 @@
-/*
 package org.example;
 
 import org.springframework.boot.CommandLineRunner;
@@ -30,4 +29,3 @@ public class DataSeeder implements CommandLineRunner {
         }
     }
 }
-*/
