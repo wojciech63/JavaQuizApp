@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Quiz</title>
+</head>
+<body>
+  <h3>Pytanie <span th:text="${currentIndex + 1}"></span> z <span th:text="${total}"></span> </h3>
+
+  <form action="/next" method="post">
+    <input type="hidden" name="index" th:value="${currentIndex}">
+
+    <h2 th:text="${question.text}">Treść...</h2>
+
+    <div th:each="answer: ${question.answers}">
+      <label>
+        <input type="radio" name="selectedAnswerId" th:value="${answer.id}" required>
+        <span th:text="${answer.text}">Odp</span>
+      </label>
+    </div>
+
+    <br>
+    <button type="submit">Dalej/Zakończ</button>
+  </form>
+
+</body>
+</html>

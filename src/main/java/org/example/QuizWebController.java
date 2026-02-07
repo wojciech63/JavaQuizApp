@@ -19,12 +19,12 @@ public class QuizWebController {
         this.quizService = quizService;
     }
 
-    @ModelAttribute
+    @ModelAttribute("userAnswers")
     public List<Long> getUserAnswers() {
         return new ArrayList<>();
     }
 
-
+    @GetMapping("/quiz")
     public String GET(@RequestParam(defaultValue = "0") int index, Model model){
         List<Question> questions = quizService.getQuestions();
         if(index >= questions.size()){
@@ -36,17 +36,25 @@ public class QuizWebController {
         return "quiz_step";
     }
 
-
-    @GetMapping("/quiz")
-    public String showQuiz(Model model) {
-        model.addAttribute("questions", quizService.getQuestions());
-        return "quiz";
+    @PostMapping("/next")
+    public String POST(@RequestParam int index, @RequestParam(required = false) Long selectedAnswerId, @ModelAttribute("userAnswers") List<Long> userAnswers){
+        if (selectedAnswerId != null){
+            userAnswers.add(selectedAnswerId);
+        }
+        int nextIndex = index + 1;
+        int totalQuestions = quizService.getQuestions().size();
+        if (nextIndex <= totalQuestions){
+            return "redirect:/quiz?index=" + nextIndex;
+        }else{
+            return "redirect:/result";
+        }
     }
 
-    @PostMapping("/submit")
-    public String returnScore(@RequestParam(required = false) List<Long> selectedAnswerId, Model model) {
-        int totalScore = quizService.calculateScore(selectedAnswerId);
+    @GetMapping("/result")
+    public String showResult(Model model, @ModelAttribute("userAnswers") List <Long> userAnswers, org.springframework.web.bind.support.SessionStatus status){
+        int totalScore = quizService.calculateScore(userAnswers);
         model.addAttribute("score", totalScore);
+        status.setComplete();
         return "result";
     }
 }
