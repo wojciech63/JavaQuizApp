@@ -6,11 +6,22 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ConfigurableApplicationContext;
 
+@SpringBootApplication
 public class MainApp extends Application {
+
+    private ConfigurableApplicationContext applicationContext;
 
     public static void main(String[] args) {
         launch(args);
+    }
+
+    @Override
+    public void init(){
+        applicationContext = SpringApplication.run(MainApp.class);
     }
 
     @Override
@@ -26,12 +37,19 @@ public class MainApp extends Application {
         root.setAlignment(Pos.CENTER);
         root.getChildren().addAll(question,score, answersContainer);
 
-        QuizController quizController = new QuizController(question, answersContainer, score);
+        QuizService quizService = applicationContext.getBean(QuizService.class);
+
+        QuizController quizController = new QuizController(question, answersContainer, score, quizService);
         quizController.startGame();
 
         Scene scene = new Scene(root, 400, 500);
         primaryStage.setScene(scene);
         primaryStage.setTitle("Quiz");
         primaryStage.show();
+    }
+
+    @Override
+    public void stop(){
+        applicationContext.close();
     }
 }

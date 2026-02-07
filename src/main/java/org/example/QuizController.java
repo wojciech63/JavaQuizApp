@@ -4,25 +4,24 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
-import java.io.IOException;
 import java.util.List;
 
 public class QuizController {
 
-    private Quiz quiz;
+    private QuizService quizService;
     private Label score;
-    private List<IQuestion> questions;
+    private List<Question> questions;
     private int scoreCounter = 0;
     private int currentIndex;
 
     private Label question;
     private VBox answersContainer;
 
-    public QuizController(Label question, VBox answersContainer, Label score) {
+    public QuizController(Label question, VBox answersContainer, Label score, QuizService quizService) {
         this.question = question;
         this.answersContainer = answersContainer;
         this.score = score;
-        this.quiz = new Quiz();
+        this.quizService = quizService;
     }
 
     private void handleAnswer(Answer answer){
@@ -41,7 +40,7 @@ public class QuizController {
 
     private void updateView(){
         answersContainer.getChildren().clear();
-        IQuestion currentQuestion = questions.get(currentIndex);
+        Question currentQuestion = questions.get(currentIndex);
         String text = currentQuestion.getText();
         question.setText(text);
 
@@ -55,12 +54,7 @@ public class QuizController {
     }
 
     public void startGame(){
-        QuizFileHandler quizFileHandler = new QuizFileHandler();
-        try {
-            questions = quizFileHandler.loadQuestions();
-        } catch (IOException e){
-            e.printStackTrace();
-        }
+        this.questions = quizService.getQuestions();
         currentIndex = 0;
         updateView();
     }
